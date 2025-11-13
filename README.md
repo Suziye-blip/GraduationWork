@@ -73,4 +73,4 @@ Return Of The Obra Dinnは、ルーカス・ポープ製作のアドベンチャ
 https://www.figma.com/design/j2oQxlGWvG014EIFW1Sltq/GraduationWork?node-id=0-1&p=f&t=AG55s2ZB8NABgP6R-0
 
 ## ER図
-[![Image from Gyazo](https://i.gyazo.com/03316e27c56aa987785bf72ca86e53e8.png)](https://gyazo.com/03316e27c56aa987785bf72ca86e53e8)
+[![Image from Gyazo](https://i.gyazo.com/dd5f9d5928209f4cbdfd0d2fd5c17d38.png)](https://gyazo.com/dd5f9d5928209f4cbdfd0d2fd5c17d38)
