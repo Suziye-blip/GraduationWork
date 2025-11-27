@@ -28,6 +28,9 @@ ja:
         updated_at: 更新日
     models:
       user: ユーザー
+    errors:
+      messages:
+        record_invalid: "バリデーションに失敗しました: %{errors}"
   devise:
     confirmations:
       confirmed: メールアドレスが確認できました。
@@ -142,3 +145,4 @@ ja:
       not_saved:
         one: エラーが発生したため %{resource} は保存されませんでした。
         other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした。"
+

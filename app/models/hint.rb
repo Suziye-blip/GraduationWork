@@ -1,3 +1,9 @@
 class Hint < ApplicationRecord
-    belongs_to :question
+  def human_readable_gender
+    if gender == 'male'
+      '男性'
+    elsif gender == 'female'
+      '女性'
+    end
+  end
 end
