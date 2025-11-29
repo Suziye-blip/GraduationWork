@@ -6,4 +6,7 @@ Rails.application.routes.draw do
   root 'top#index'
   get 'how_to_play', to: 'pages#how_to_play'
   get 'game' => 'games#index'
+  post '/game', to: 'games#check'
+  get 'start_new_game', to: 'games#start_new_game'
 end
+

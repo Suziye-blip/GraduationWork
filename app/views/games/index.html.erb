@@ -6,26 +6,27 @@
     <title>直接入力フォームの例</title>
 </head>
 <body>
-    <form action="#" method="post">
+    <%= form_with(url: game_path, method: :post) do |form| %>
         <label for="subject">その人の</label>
-        <input type="text" id="subject" name="subject" placeholder="出身" required>
+        <%= form.text_field :subject, id: "subject", placeholder: "出身", required: true %>
         <label for="predicate">は</label>
-        <input type="text" id="predicate" name="predicate" placeholder="東京都" required>
+        <%= form.text_field :predicate, id: "predicate", placeholder: "東京都", required: true %>
         <label>ですか？</label>
         <br><br>
-        <input type="submit" value="質問する">
-    </form>
+        <%= form.submit "質問する" %>
+
+    <% end %>
 </body>
 </html>
 
 <table class="info-table">
   <thead>
     <tr>
-      <th>氏名</th>
-      <th>性別</th>
-      <th>年齢</th>
-      <th>出身</th>
-      <th>職業</th>
+      <th><%= sort_link(@q, :name, "名前")%></th>
+      <th><%= sort_link(@q, :gender, "性別")%></th>
+      <th><%= sort_link(@q, :age, "年齢")%></th>
+      <th><%= sort_link(@q, :birthplace, "出身")%></th>
+      <th><%= sort_link(@q, :job, "役職")%></th>
     </tr>
   </thead>
   <tbody>
@@ -33,7 +34,7 @@
       <tr>
         <td><%= hint.name %></td>
         <td><%= hint.human_readable_gender %></td>
-        <td><%= hint.age %></td>
+        <td><%= hint.age %>代</td>
         <td><%= hint.birthplace %></td>
         <td><%= hint.job %></td>
       </tr>
@@ -43,7 +44,7 @@
 
 <style>
   .info-table {
-    width: 60%;
+    width: 50%;
     border-collapse: collapse;
     margin-top: 20px;
   }

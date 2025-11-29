@@ -1,0 +1,11 @@
+<h1>正解！</h1>
+
+<% if flash.now[:notice] %>
+  <p style="color: green;"><%= flash.now[:notice] %></p>
+<% end %>
+
+<p>答えは <%= @answer.name %> さんでした！</p>
+<p>正解までに <%= session[:question_count] %> 回の質問をしました。</p>
+
+<%= link_to 'もう一度プレイする', start_new_game_path, method: :get %>
+<%= link_to 'トップへ戻る', game_path %>
