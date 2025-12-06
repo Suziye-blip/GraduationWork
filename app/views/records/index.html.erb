@@ -1,0 +1,39 @@
+<h1>記録一覧</h1>
+
+<table class="score-table">
+  <thead>
+    <tr>
+      <th>正解までの時間（秒）</th>
+      <th>質問回数</th>
+      <th>プレイ日時</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @records.each do |record| %>
+      <tr>
+        <td><%= record.cleartime %></td>
+        <td><%= record.number_of_time %></td>
+        <td><%= record.created_at.strftime("%Y/%m/%d %H:%M") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<hr>
+<%= link_to 'ゲーム画面へ戻る', game_path %>
+
+<style>
+.score-table {
+  border-collapse: collapse;
+  margin-top: 15px;
+  width: 50%;
+}
+.score-table th, .score-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+.score-table th {
+  background-color: #f2f2f2;
+}
+</style>

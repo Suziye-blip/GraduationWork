@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ユニークなゲーム</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if user_signed_in? %>      
+      <%= link_to "ユーザー", user_path(current_user)%>
+      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+      <%= link_to "あそびかた", how_to_play_path, method: :get %>
+      <%= link_to 'トップへ戻る', root_path %>  
+    <% else %>
+      <%= link_to 'ログイン', new_user_session_path %>
+      <%= link_to 'サインアップ', new_user_registration_path %>
+      <%= link_to "あそびかた", how_to_play_path, method: :get %>
+    <% end %>
+  <% if flash[:notice] %>
+    <p class="notice"><%= notice %></p>
+  <% end %>
+  <% if flash[:alert] %>
+    <p class="alert"><%= alert %></p>
+  <% end %>
+    <hr />
+
+    <%= yield %>
+  </body>
+</html>
