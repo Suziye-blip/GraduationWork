@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   get 'game' => 'games#index'
   post '/game', to: 'games#check'
   get 'start_new_game', to: 'games#start_new_game'
+  get 'record' => 'records#index'
 end
 

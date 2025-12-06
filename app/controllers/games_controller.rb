@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+  before_action :authenticate_user! 
+
   def current_answer
     if session[:answer_id]
       @current_answer ||= Hint.find_by(id: session[:answer_id])
@@ -13,6 +15,7 @@ class GamesController < ApplicationController
     session[:question_count] = 0
     session[:exclusions] = []
     session[:inclusions] = []
+    session[:start_time] = Time.now.to_i
 
     Hint.delete_all
 
@@ -31,7 +34,7 @@ class GamesController < ApplicationController
       )
     end
 
-    flash[:notice] = "新しいゲームを開始しました。データが更新されました。"
+    flash[:notice] = "候補者データが更新されました。"
     redirect_to game_path
   end
 
@@ -69,7 +72,6 @@ class GamesController < ApplicationController
       "性別" => :gender,
       "年齢" => :age,
       "名前" => :name,
-      "氏名" => :name,
     }  
 
     target_attribute = attribute_map[question_subject]
@@ -99,6 +101,22 @@ class GamesController < ApplicationController
 
     if @is_correct
       if question_subject == "名前" || question_subject == "氏名"
+        end_time = Time.now.to_i
+        start_time = session[:start_time].to_i
+        @elapsed_time = end_time - start_time
+
+      record_attributes = {
+        number_of_time: session[:question_count],
+        cleartime: @elapsed_time
+      }
+
+      if current_user.present?
+        record_attributes[:user_id] = current_user.id
+      end
+
+      Record.create!(record_attributes)
+      @records = Record.all.order(cleartime: :asc, number_of_time: :asc)
+
         render :result and return
       else
         flash[:notice] = "はい"

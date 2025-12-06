@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_11_26_133849) do
+ActiveRecord::Schema.define(version: 2025_12_05_062504) do
 
   create_table "hints", force: :cascade do |t|
     t.string "name", null: false
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2025_11_26_133849) do
 
   create_table "records", force: :cascade do |t|
     t.integer "number_of_time"
-    t.time "cleartime"
+    t.integer "cleartime"
     t.boolean "giveup"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
