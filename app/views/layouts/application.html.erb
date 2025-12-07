@@ -18,6 +18,7 @@
       <%= link_to 'トップへ戻る', root_path %>  
     <% else %>
       <%= link_to "あそびかた", how_to_play_path, method: :get %>
+      <%= link_to 'トップへ戻る', root_path %> 
     <% end %>
   <% if flash[:notice] %>
     <p class="notice"><%= notice %></p>
