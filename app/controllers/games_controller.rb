@@ -20,8 +20,8 @@ class GamesController < ApplicationController
     Hint.delete_all
 
     age_starts = [18,19,20,21,22,23]
-    grade_starts = ["1年生","2年生","3年生","4年生"]
-    faculty_starts = ["文学部","経済学部","教育学部","理学部","工学部"]
+    grade_starts = ['1年生','2年生','3年生','4年生']
+    faculty_starts = ['文学部','経済学部','教育学部','理学部','工学部']
     address_starts = []
       5.times do
         address_starts << FFaker::AddressJA.tokyo_ward
@@ -44,7 +44,7 @@ class GamesController < ApplicationController
       )
     end
 
-    flash[:notice] = "候補者データが更新されました。"
+    flash[:notice] = '候補者データが更新されました。'
     redirect_to game_path
   end
 
@@ -67,7 +67,7 @@ class GamesController < ApplicationController
     @answer = current_answer
     
     if @answer.nil?
-      flash[:alert] = "ゲームが初期化されていません。もう一度最初から開始してください。"
+      flash[:alert] = 'ゲームが初期化されていません。もう一度最初から開始してください。'
       redirect_to games_path and return
     end
 
@@ -77,12 +77,12 @@ class GamesController < ApplicationController
     question_predicate = params[:predicate]
 
     attribute_map = {
-      "学部" => :faculty,
-      "住所" => :address,
-      "学年" => :grade,
-      "性別" => :gender,
-      "年齢" => :age,
-      "名前" => :name,
+      '学部' => :faculty,
+      '住所' => :address,
+      '学年' => :grade,
+      '性別' => :gender,
+      '年齢' => :age,
+      '名前' => :name,
     }  
 
     target_attribute = attribute_map[question_subject]
@@ -93,8 +93,8 @@ class GamesController < ApplicationController
       
       if target_attribute == :gender
         @is_correct = (
-          (correct_value == "male"   && question_predicate == "男性") ||
-          (correct_value == "female" && question_predicate == "女性")
+          (correct_value == 'male'   && question_predicate == '男性') ||
+          (correct_value == 'female' && question_predicate == '女性')
         )
       elsif target_attribute == :age
          @is_correct = (correct_value.to_i == question_predicate.to_i)
@@ -103,7 +103,7 @@ class GamesController < ApplicationController
       end
       
     else
-      flash[:alert] = "指定された項目は無効です。"
+      flash[:alert] = '指定された項目は無効です。'
       redirect_to game_path and return
     end
 
@@ -111,7 +111,7 @@ class GamesController < ApplicationController
     session[:predicate] = question_predicate
 
     if @is_correct
-      if question_subject == "名前" || question_subject == "氏名"
+      if question_subject == '名前' || question_subject == '氏名'
         end_time = Time.now.to_i
         start_time = session[:start_time].to_i
         @elapsed_time = end_time - start_time
@@ -130,13 +130,13 @@ class GamesController < ApplicationController
 
         render :result and return
       else
-        flash[:notice] = "はい"
+        flash[:notice] = 'はい'
         session[:inclusions] ||= []
         session[:inclusions] << { subject: question_subject, predicate: question_predicate }
         session[:inclusions].uniq!
       end
     else
-      flash[:alert] = "いいえ"
+      flash[:alert] = 'いいえ'
 
       session[:exclusions] ||= []
       session[:exclusions] << { subject: question_subject, predicate: question_predicate }
@@ -153,7 +153,7 @@ class GamesController < ApplicationController
     session[:question_count] = 0
     session[:exclusions] = []
     session[:inclusions] = []
-    flash[:notice] = "ゲームをリセットしました。"
+    flash[:notice] = 'ゲームをリセットしました。'
     redirect_to game_path
   end
 end
