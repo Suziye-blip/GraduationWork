@@ -8,9 +8,9 @@
 <body>
     <%= form_with(url: game_path, method: :post) do |form| %>
         <label for="subject">その人の</label>
-        <%= form.text_field :subject, id: "subject", placeholder: "出身", required: true %>
+        <%= form.text_field :subject, id: "subject", placeholder: "性別", required: true %>
         <label for="predicate">は</label>
-        <%= form.text_field :predicate, id: "predicate", placeholder: "東京都", required: true %>
+        <%= form.text_field :predicate, id: "predicate", placeholder: "男性", required: true %>
         <label>ですか？</label>
         <br><br>
         <%= form.submit "質問する" %>
@@ -25,8 +25,10 @@
       <th><%= sort_link(@q, :name, "名前")%></th>
       <th><%= sort_link(@q, :gender, "性別")%></th>
       <th><%= sort_link(@q, :age, "年齢")%></th>
-      <th><%= sort_link(@q, :birthplace, "出身")%></th>
-      <th><%= sort_link(@q, :job, "役職")%></th>
+      <th><%= sort_link(@q, :grade, "学年")%></th>
+      <th><%= sort_link(@q, :address, "住所")%></th>
+      <th><%= sort_link(@q, :faculty, "学部")%></th>
+
     </tr>
   </thead>
   <tbody>
@@ -34,9 +36,10 @@
       <tr>
         <td><%= hint.name %></td>
         <td><%= hint.human_readable_gender %></td>
-        <td><%= hint.age %>代</td>
-        <td><%= hint.birthplace %></td>
-        <td><%= hint.job %></td>
+        <td><%= hint.age %></td>
+        <td><%= hint.grade %></td>
+        <td><%= hint.address %></td>
+        <td><%= hint.faculty %></td>
       </tr>
     <% end %>
   </tbody>
