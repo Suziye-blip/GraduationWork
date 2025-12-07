@@ -8,9 +8,9 @@
 <body>
     <%= form_with(url: game_path, method: :post) do |form| %>
         <label for="subject">その人の</label>
-        <%= form.text_field :subject, id: "subject", placeholder: "年齢", required: true %>
+        <%= form.text_field :subject, id: "subject", placeholder: "年齢", required: true, size: 8 %>
         <label for="predicate">は</label>
-        <%= form.text_field :predicate, id: "predicate", placeholder: "20", required: true %>
+        <%= form.text_field :predicate, id: "predicate", placeholder: "20", required: true, size: 8 %>
         <label>ですか？</label>
         <br><br>
         <%= form.submit "質問する" %>
