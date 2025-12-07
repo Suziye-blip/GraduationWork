@@ -2,7 +2,7 @@
 <p>これは、質問を繰り返しながら、最終的に1人の名前を当てる"ユニーク"なゲームです。</p>
 
 <% if user_signed_in? %>
-  <%= link_to 'ゲームをプレイする', start_new_game_path, method: :post %><br><br>
+  <%= link_to 'ゲームをプレイする', start_new_game_path, method: :get %><br><br>
   <%= link_to '記録一覧', record_path %>
 <% else %>
   <%= link_to 'ログインする', new_user_session_path %><br><br>
