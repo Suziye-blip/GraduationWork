@@ -19,18 +19,28 @@ class GamesController < ApplicationController
 
     Hint.delete_all
 
-    age_starts = [10, 20, 30, 40, 50, 60, 70]
+    age_starts = [18,19,20,21,22,23]
+    grade_starts = ["1年生","2年生","3年生","4年生"]
+    faculty_starts = ["文学部","経済学部","教育学部","理学部","工学部"]
+    address_starts = []
+      5.times do
+        address_starts << FFaker::AddressJA.tokyo_ward
+      end
 
     30.times do
       generated_age_start = age_starts.sample
+      generated_grade_start = grade_starts.sample
+      generated_faculty_start = faculty_starts.sample
+      generated_address_start = address_starts.sample
       person = Gimei.unique.name 
 
       Hint.create!(
         name: person.kanji, 
         gender: person.gender.to_s, 
         age: generated_age_start,
-        birthplace: Gimei.address.prefecture.to_s,
-        job: FFaker::CompanyJA.position,
+        grade: generated_grade_start,
+        address: generated_address_start,
+        faculty: generated_faculty_start,
       )
     end
 
@@ -67,8 +77,9 @@ class GamesController < ApplicationController
     question_predicate = params[:predicate]
 
     attribute_map = {
-      "出身" => :birthplace,
-      "役職" => :job,
+      "学部" => :faculty,
+      "住所" => :address,
+      "学年" => :grade,
       "性別" => :gender,
       "年齢" => :age,
       "名前" => :name,

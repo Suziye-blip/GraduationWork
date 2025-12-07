@@ -2,7 +2,7 @@ class Hint < ApplicationRecord
 
   # Ransackによる検索・ソートを許可するカラムを定義 (Ransackの要件)
   def self.ransackable_attributes(auth_object = nil)
-    ["id", "name", "age", "gender", "birthplace", "job", "created_at", "updated_at"]
+    ["id", "name", "age", "gender", "grade", "faculty","address", "created_at", "updated_at"]
   end
   
   # Ransackで検索可能な関連（アソシエーション）を定義 (現時点では関連がないため空欄)
@@ -30,8 +30,8 @@ class Hint < ApplicationRecord
       predicate = exclusion["predicate"]
       
       attribute_map = {
-        "出身" => :birthplace, "役職" => :job, "性別" => :gender,
-        "年齢" => :age, "名前" => :name
+        "学部" => :faculty, "学年" => :grade, "性別" => :gender,
+        "年齢" => :age, "名前" => :name, "住所" => :address,
       }
       target_attribute = attribute_map[subject]
 
@@ -40,9 +40,6 @@ class Hint < ApplicationRecord
         if target_attribute == :gender && (predicate == "男性" || predicate == "女性")
           db_value = (predicate == "男性") ? "male" : "female"
           chain = chain.where.not(target_attribute => db_value)
-        elsif target_attribute == :age
-           numeric_value = predicate.gsub('代', '').to_i
-           chain = chain.where.not(target_attribute => numeric_value)
         else
           chain = chain.where.not(target_attribute => predicate)
         end
@@ -58,8 +55,8 @@ class Hint < ApplicationRecord
       predicate = inclusion["predicate"]
       
       attribute_map = {
-        "出身" => :birthplace, "役職" => :job, "性別" => :gender,
-        "年齢" => :age, "名前" => :name, "氏名" => :name
+        "学部" => :faculty, "学年" => :grade, "性別" => :gender,
+        "年齢" => :age, "名前" => :name, "住所" => :address,
       }
       target_attribute = attribute_map[subject]
 
@@ -68,9 +65,6 @@ class Hint < ApplicationRecord
         if target_attribute == :gender && (predicate == "男性" || predicate == "女性")
           db_value = (predicate == "男性") ? "male" : "female"
           chain = chain.where(target_attribute => db_value)
-        elsif target_attribute == :age
-           numeric_value = predicate.gsub('代', '').to_i
-           chain = chain.where(target_attribute => numeric_value)
         else
           chain = chain.where(target_attribute => predicate)
         end
