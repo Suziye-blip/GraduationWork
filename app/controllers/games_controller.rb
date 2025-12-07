@@ -21,12 +21,17 @@ class GamesController < ApplicationController
 
     age_starts = [18,19,20,21,22,23]
     grade_starts = ["1年生","2年生","3年生","4年生"]
-    faculty_starts = ["文学部","経済学部","法学部","教育学部","理学部","工学部","医学部"]
+    faculty_starts = ["文学部","経済学部","教育学部","理学部","工学部"]
+    address_starts = []
+      5.times do
+        address_starts << FFaker::AddressJA.tokyo_ward
+      end
 
     30.times do
       generated_age_start = age_starts.sample
       generated_grade_start = grade_starts.sample
       generated_faculty_start = faculty_starts.sample
+      generated_address_start = address_starts.sample
       person = Gimei.unique.name 
 
       Hint.create!(
@@ -34,7 +39,7 @@ class GamesController < ApplicationController
         gender: person.gender.to_s, 
         age: generated_age_start,
         grade: generated_grade_start,
-        address: FFaker::AddressJA.tokyo_ward,
+        address: generated_address_start,
         faculty: generated_faculty_start,
       )
     end
