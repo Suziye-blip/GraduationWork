@@ -48,20 +48,26 @@ class GamesController < ApplicationController
     redirect_to game_path
   end
 
-  def index
-    if current_answer.nil?
-      @answer = Hint.all.sample
-      session[:answer_id] = @answer.id
+def index
+  if current_answer.nil?
+    @answer = Hint.all.sample
+    
+    if @answer.nil?
+      redirect_to root_path, alert: 'ヒントデータが存在しません。管理者に連絡してください。'
+      return
     end
     
-    @q = Hint.ransack(params[:q])
-    
-    @hints = @q.result(distinct: true)
-               .exclude_conditions(session[:exclusions] || [])
-               .include_conditions(session[:inclusions] || [])
-
-    session[:question_count] ||= 0
+    session[:answer_id] = @answer.id
   end
+  
+  @q = Hint.ransack(params[:q])
+  
+  @hints = @q.result(distinct: true)
+             .exclude_conditions(session[:exclusions] || [])
+             .include_conditions(session[:inclusions] || [])
+
+  session[:question_count] ||= 0
+end
 
   def check
     @answer = current_answer
