@@ -1,0 +1,13 @@
+ja:
+  devise:
+    sessions:
+      new:
+        log_in: 'ログイン'
+    registrations:
+      new:
+        sign_up: 'サインアップ'
+    shared:
+      links:
+        log_in: 'ログイン'
+        sign_up: 'サインアップ'
+        forgot_your_password: 'パスワードを忘れた?'
