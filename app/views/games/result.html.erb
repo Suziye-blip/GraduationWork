@@ -1,14 +1,19 @@
+<% if @giveup %>
+  <h1>残念…</h1>
+  <p>正解は <strong><%= @answer.name %></strong> さんでした。</p>
+<% else %>
 <h1>正解！</h1>
 
 <% if flash.now[:notice] %>
   <p style="color: green;"><%= flash.now[:notice] %></p>
 <% end %>
 
-<p>その人は <%= @answer.name %> さんでした。</p>
-<p>正解までに <%= session[:question_count] %> 回の質問をしました。</p>
+  <p>その人は <%= @answer.name %> さんでした。</p>
+<% end %>
+<p>合計で <%= session[:question_count] %> 回の質問をしました。</p>
 <% if @elapsed_time.present? %>
   <p>かかった時間は <strong><%= @elapsed_time %> 秒</strong>でした。</p>
 <% end %>
 
 <%= link_to 'もう一度プレイする', start_new_game_path, method: :get %>
-<%= link_to 'ゲーム記録を見る', record_path %>
+<%= link_to 'プレイした記録を見る', record_path %>

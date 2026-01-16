@@ -3,7 +3,6 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>直接入力フォームの例</title>
 </head>
 <body>
     <%= form_with(url: game_path, method: :post) do |form| %>
@@ -14,6 +13,8 @@
         <label>ですか？</label>
         <br><br>
         <%= form.submit "質問する" %>
+
+        <%= link_to "ギブアップ", giveup_game_path, class: "btn-giveup", data: { confirm: "本当にギブアップしますか？" } %>
 
     <% end %>
 </body>
@@ -60,4 +61,31 @@
     background-color: #f2f2f2;
     font-weight: bold;
   }
+.btn-base, input[type="submit"], .btn-giveup {
+  display: inline-block;
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+input[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  border-color: #0069d9;
+}
+input[type="submit"]:hover {
+  background-color: #0069d9;
+}
+
+.btn-giveup {
+  background-color: #e0e0e0;
+  color: #333;
+  margin-left: 10px;
+}
+.btn-giveup:hover {
+  background-color: #d0d0d0;
+}
 </style>

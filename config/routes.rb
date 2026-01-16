@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   post '/game', to: 'games#check'
   get 'start_new_game', to: 'games#start_new_game'
   get 'record' => 'records#index'
+  get 'game/giveup', to: 'games#giveup', as: :giveup_game
 end
 
