@@ -15,5 +15,13 @@
   <p>かかった時間は <strong><%= @elapsed_time %> 秒</strong>でした。</p>
 <% end %>
 
+<%
+  # シェアするテキストの構築
+  share_status = @giveup ? "残念！ギブアップしました..." : "正解！その人は「#{@answer.name}」さんでした！"
+  share_text = "#{share_status}\n質問回数: #{session[:question_count]}回\n経過時間: #{@elapsed_time}秒\n#ユニークなゲーム "
+  share_url = "https://x.com/intent/tweet?#{ { text: share_text }.to_query }"
+%>
+
+<%= link_to 'Xで結果をシェア', share_url, target: '_blank', rel: 'noopener noreferrer', class: 'share-button' %>
 <%= link_to 'もう一度プレイする', start_new_game_path, method: :get %>
 <%= link_to 'プレイした記録を見る', record_path %>
