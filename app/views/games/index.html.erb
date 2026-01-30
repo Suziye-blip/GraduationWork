@@ -5,97 +5,146 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <%= form_with(url: game_path, method: :post) do |form| %>
-        <label for="subject">その人の</label>
-        <%= form.text_field :subject, id: "subject", placeholder: "年齢", required: true, size: 8 %>
-        <label for="predicate">は</label>
-        <%= form.text_field :predicate, id: "predicate", placeholder: "20", required: true, size: 8 %>
-        <label>ですか？</label>
-        <br><br>
-        <%= form.submit "質問する" %>
+    <!-- フォーム部分は固定位置に配置 -->
+    <div class="form-container">
+        <%= form_with(url: game_path, method: :post) do |form| %>
+            <label for="subject">その人の</label>
+            <%= form.text_field :subject, id: "subject", placeholder: "年齢", required: true, size: 8 %>
+            <label for="predicate">は</label>
+            <%= form.text_field :predicate, id: "predicate", placeholder: "20", required: true, size: 8 %>
+            <label>ですか？</label>
+            <br><br>
+            <%= form.submit "質問する" %>
 
-        <%= link_to "ギブアップ", giveup_game_path, class: "btn-giveup", data: { confirm: "本当にギブアップしますか？" } %>
+            <%= link_to "ギブアップ", giveup_game_path, class: "btn-giveup", data: { confirm: "本当にギブアップしますか？" } %>
+        <% end %>
+    </div>
 
-    <% end %>
+    <!-- テーブル部分：ここが上下左右にスクロールします -->
+    <div class="table-scroll-container">
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th><%= sort_link(@q, :name, "名前")%></th>
+                    <th><%= sort_link(@q, :gender, "性別")%></th>
+                    <th><%= sort_link(@q, :age, "年齢")%></th>
+                    <th><%= sort_link(@q, :grade, "学年")%></th>
+                    <th><%= sort_link(@q, :address, "住所")%></th>
+                    <th><%= sort_link(@q, :faculty, "学部")%></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @hints.each do |hint| %>
+                    <tr>
+                        <td><%= hint.name %></td>
+                        <td><%= hint.human_readable_gender %></td>
+                        <td><%= hint.age %></td>
+                        <td><%= hint.grade %></td>
+                        <td><%= hint.address %></td>
+                        <td><%= hint.faculty %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
 
-<table class="info-table">
-  <thead>
-    <tr>
-      <th><%= sort_link(@q, :name, "名前")%></th>
-      <th><%= sort_link(@q, :gender, "性別")%></th>
-      <th><%= sort_link(@q, :age, "年齢")%></th>
-      <th><%= sort_link(@q, :grade, "学年")%></th>
-      <th><%= sort_link(@q, :address, "住所")%></th>
-      <th><%= sort_link(@q, :faculty, "学部")%></th>
-
-    </tr>
-  </thead>
-  <tbody>
-    <% @hints.each do |hint| %>
-      <tr>
-        <td><%= hint.name %></td>
-        <td><%= hint.human_readable_gender %></td>
-        <td><%= hint.age %></td>
-        <td><%= hint.grade %></td>
-        <td><%= hint.address %></td>
-        <td><%= hint.faculty %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
 <style>
-.info-table {
-  width: 50%; /* ここはお好みで80%などに広げてもOK */
-  min-width: 600px; /* あまりに細くなりすぎるのを防ぐ */
-  border-collapse: collapse;
-  margin-top: 20px;
- }
-
-  /* スマホなど画面幅が768px以下のとき */
-@media screen and (max-width: 768px) {
-  .info-table {
-    width: 100%; /* 画面いっぱいに広げる */
-    min-width: auto;
-    display: block; /* テーブルをはみ出させないための魔法 */
-    overflow-x: auto; /* 横に長い場合はスクロール可能にする */
-    white-space: nowrap; /* 文字の折り返しを防いで見やすくする */
-  }
+/* フォームの余白調整 */
+.form-container {
+    margin-bottom: 20px;
 }
 
-  .info-table th, .info-table td {
+/* 
+  テーブルを囲むコンテナ 
+  - max-height: 画面の高さに応じて高さを制限し、縦スクロールを可能に
+  - overflow: auto: 中身がはみ出たときだけスクロールバーを表示
+*/
+.table-scroll-container {
+    width: 100%;
+    max-height: 60vh; /* 画面高さの60%に制限。残りをフォーム等に充てる */
+    overflow: auto;
     border: 1px solid #ddd;
-    padding: 2px 4px;
-    text-align: left;
-  }
+    -webkit-overflow-scrolling: touch; /* スマホでのスクロールを滑らかに */
+}
 
-.btn-base, input[type="submit"], .btn-giveup {
-  display: inline-block;
-  padding: 5px 10px;
-  text-decoration: none;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  font-size: 14px;
+.info-table {
+    width: 100%;
+    min-width: 600px; /* スマホでも横スクロールさせるための最小幅 */
+    border-collapse: separate; /* stickyヘッダーのためにseparateを指定 */
+    border-spacing: 0;
+}
+
+/* ヘッダー（項目名）を上に固定 */
+.info-table th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #f2f2f2;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+    border-right: 1px solid #ddd;
+    padding: 8px 12px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+/* 各セルの設定 */
+.info-table td {
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    padding: 8px 12px;
+    text-align: left;
+    white-space: nowrap; /* 文字の折り返しを防ぎ、横スクロールを活用する */
+}
+
+/* 最後の列の右線を消す（見た目の調整） */
+.info-table th:last-child,
+.info-table td:last-child {
+    border-right: none;
+}
+
+/* ボタンのスタイル（元のデザインを継承） */
+input[type="submit"], .btn-giveup {
+    display: inline-block;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-size: 14px;
 }
 
 input[type="submit"] {
-  background-color: #007bff;
-  color: white;
-  border-color: #0069d9;
+    background-color: #007bff;
+    color: white;
+    border-color: #0069d9;
 }
+
 input[type="submit"]:hover {
-  background-color: #0069d9;
+    background-color: #0069d9;
 }
 
 .btn-giveup {
-  background-color: #e0e0e0;
-  color: #333;
-  margin-left: 10px;
+    background-color: #e0e0e0;
+    color: #333;
+    margin-left: 10px;
 }
+
 .btn-giveup:hover {
-  background-color: #d0d0d0;
+    background-color: #d0d0d0;
+}
+
+/* スマホ閲覧時（幅768px以下）の微調整 */
+@media screen and (max-width: 768px) {
+    .table-scroll-container {
+        max-height: 50vh; /* スマホではキーボード表示を考慮して少し低めに */
+    }
+    
+    /* フォーム内の文字が小さくなりすぎないよう調整 */
+    input[type="text"] {
+        font-size: 16px; 
+    }
 }
 </style>
