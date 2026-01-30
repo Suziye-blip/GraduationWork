@@ -47,20 +47,30 @@
 </table>
 
 <style>
+.info-table {
+  width: 50%; /* ここはお好みで80%などに広げてもOK */
+  min-width: 600px; /* あまりに細くなりすぎるのを防ぐ */
+  border-collapse: collapse;
+  margin-top: 20px;
+ }
+
+  /* スマホなど画面幅が768px以下のとき */
+@media screen and (max-width: 768px) {
   .info-table {
-    width: 50%;
-    border-collapse: collapse;
-    margin-top: 20px;
+    width: 100%; /* 画面いっぱいに広げる */
+    min-width: auto;
+    display: block; /* テーブルをはみ出させないための魔法 */
+    overflow-x: auto; /* 横に長い場合はスクロール可能にする */
+    white-space: nowrap; /* 文字の折り返しを防いで見やすくする */
   }
+}
+
   .info-table th, .info-table td {
     border: 1px solid #ddd;
-    padding: 8px 12px;
+    padding: 2px 4px;
     text-align: left;
   }
-  .info-table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-  }
+
 .btn-base, input[type="submit"], .btn-giveup {
   display: inline-block;
   padding: 5px 10px;
