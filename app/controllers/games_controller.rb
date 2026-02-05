@@ -165,22 +165,24 @@ end
 
   def giveup
     @answer = current_answer
-    
     if @answer.nil?
       redirect_to game_path and return
     end
 
-    # ギブアップしたことを示すフラグ
     @giveup = true
-
-    # 経過時間の計算（checkアクションの正解時と同様）
     end_time = Time.now.to_i
     start_time = session[:start_time].to_i
     @elapsed_time = end_time - start_time
 
-    # ギブアップ時はレコード（ランキング）に保存しない場合はこのまま
-    # 保存したい場合は Record.create! をここでも記述します
 
+    Record.create!(
+      number_of_time: session[:question_count],
+      cleartime: @elapsed_time,
+      user_id: current_user&.id,
+      giveup: true
+    )
+
+    @records = Record.where(giveup: false).order(cleartime: :asc, number_of_time: :asc)
     render :result
   end
 end

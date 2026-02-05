@@ -21,7 +21,6 @@
   share_url = "https://x.com/intent/tweet?#{ { text: share_text }.to_query }"
 %>
 
-<%# 下部のボタンエリア %>
 <div class="button-container">
   <%= link_to 'Xで結果をシェア', share_url, target: '_blank', rel: 'noopener noreferrer', class: 'share-button menu-link' %>
   <%= link_to 'もう一度プレイする', start_new_game_path, method: :get, class: 'menu-link' %>
@@ -56,3 +55,4 @@
   color: #fff;
   border: none;
 }
+</style>
