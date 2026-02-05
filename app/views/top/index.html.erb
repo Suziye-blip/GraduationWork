@@ -1,10 +1,41 @@
 <h1>ユニークなゲーム</h1>
 <p>これは、質問を繰り返しながら、最終的に1人の名前を当てる"ユニーク"なゲームです。</p>
 
-<% if user_signed_in? %>
-  <%= link_to 'ゲームをプレイする', start_new_game_path, method: :get %><br><br>
-  <%= link_to '記録一覧', record_path %>
-<% else %>
-  <%= link_to 'ログインする', new_user_session_path %><br><br>
-  <%= link_to '新規登録', new_user_registration_path %>
-<% end %>
+<div class="button-container">
+  <% if user_signed_in? %>
+    <%= link_to 'ゲームをプレイする', start_new_game_path, method: :get, class: 'menu-link primary-btn' %>
+    <%= link_to '記録一覧', record_path, class: 'menu-link' %>
+  <% else %>
+    <%= link_to 'ログインする', new_user_session_path, class: 'menu-link primary-btn' %>
+    <%= link_to '新規登録', new_user_registration_path, class: 'menu-link' %>
+  <% end %>
+</div>
+
+<style>
+/* 前回の共通スタイルに加えて... */
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+  max-width: 400px; /* PCで見るときに横に広がりすぎないよう制限（任意） */
+}
+
+.menu-link {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background-color: #ffffff;
+  color: #333;
+  font-weight: bold;
+}
+
+/* 目立たせたいボタンの色 */
+.primary-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+}

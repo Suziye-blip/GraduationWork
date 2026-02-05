@@ -16,12 +16,43 @@
 <% end %>
 
 <%
-  # シェアするテキストの構築
   share_status = @giveup ? "残念！ギブアップしました..." : "正解！その人は「#{@answer.name}」さんでした！"
   share_text = "#{share_status}\n質問回数: #{session[:question_count]}回\n経過時間: #{@elapsed_time}秒\n#ユニークなゲーム "
   share_url = "https://x.com/intent/tweet?#{ { text: share_text }.to_query }"
 %>
 
-<%= link_to 'Xで結果をシェア', share_url, target: '_blank', rel: 'noopener noreferrer', class: 'share-button' %>
-<%= link_to 'もう一度プレイする', start_new_game_path, method: :get %>
-<%= link_to 'プレイした記録を見る', record_path %>
+<%# 下部のボタンエリア %>
+<div class="button-container">
+  <%= link_to 'Xで結果をシェア', share_url, target: '_blank', rel: 'noopener noreferrer', class: 'share-button menu-link' %>
+  <%= link_to 'もう一度プレイする', start_new_game_path, method: :get, class: 'menu-link' %>
+  <%= link_to 'プレイした記録を見る', record_path, class: 'menu-link' %>
+</div>
+
+<style>
+/* ボタンを囲むコンテナ */
+.button-container {
+  display: flex;
+  flex-direction: column; /* 子要素を縦に並べる */
+  gap: 10px;             /* ボタン同士の間隔 */
+  margin-top: 20px;
+  max-width: 400px;
+}
+
+/* 共通のリンクスタイル */
+.menu-link {
+  display: block;        /* 縦に並ぶようにする */
+  text-align: center;    /* 文字を中央に */
+  padding: 12px;         /* タップしやすい高さに */
+  text-decoration: none;
+  border-radius: 8px;    /* 角を丸く */
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* シェアボタンだけ色を変える場合 */
+.share-button {
+  background-color: #000; /* X(Twitter)カラー */
+  color: #fff;
+  border: none;
+}
