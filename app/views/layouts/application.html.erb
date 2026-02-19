@@ -11,23 +11,25 @@
   </head>
 
   <body>
-    <% if user_signed_in? %>      
-      <%= link_to "ユーザー", user_path(current_user)%>
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-      <%= link_to "あそびかた", how_to_play_path, method: :get %>
-      <%= link_to 'トップへ戻る', root_path %>  
-    <% else %>
-      <%= link_to "あそびかた", how_to_play_path, method: :get %>
-      <%= link_to 'トップへ戻る', root_path %> 
-    <% end %>
-  <% if flash[:notice] %>
-    <p class="notice"><%= notice %></p>
-  <% end %>
-  <% if flash[:alert] %>
-    <p class="alert"><%= alert %></p>
-  <% end %>
-    <hr />
+    <header>
+      <% if user_signed_in? %>      
+        <%= link_to "ユーザー", user_path(current_user)%>
+        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+      <% end %>
+      <%= link_to "あそびかた", how_to_play_path %>
+      <%= link_to 'トップ', root_path %>  
+    </header>
 
-    <%= yield %>
+    <% if flash[:notice] %>
+      <p class="notice"><%= notice %></p>
+    <% end %>
+    <% if flash[:alert] %>
+      <p class="alert"><%= alert %></p>
+    <% end %>
+
+    <main>
+      <%= yield %>
+    </main>
   </body>
+
 </html>

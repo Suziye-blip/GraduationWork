@@ -1,15 +1,208 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+/* 全体のベースデザイン */
+body {
+  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* 柔らかい背景グラデーション */
+  margin: 0;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* ナビゲーションバーのスタイル */
+header {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  backdrop-filter: blur(5px);
+}
+
+/* リンクボタンの共通スタイル */
+header a {
+  text-decoration: none;
+  color: #4a90e2;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+header a:hover {
+  background-color: #4a90e2;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* フラッシュメッセージ */
+.notice, .alert {
+  padding: 15px;
+  margin: 20px auto;
+  width: 80%;
+  border-radius: 8px;
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+.notice { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.alert { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+/* コンテンツエリア */
+main {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+hr { border: 0; height: 1px; background: #eee; margin: 0; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* フォーム全体のコンテナ */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* 白色のカード部分 */
+.auth-card {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-card h2 {
+  margin-top: 0;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #333;
+}
+
+/* 入力フィールドのラベルとボックス */
+.field {
+  margin-bottom: 20px;
+}
+
+.field label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-sizing: border-box; /* 幅を100%に収めるために必須 */
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+/* 送信ボタン */
+.btn-primary {
+  width: 100%;
+  background-color: #4a90e2;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #357abd;
+}
+
+/* 下部のリンク（ログイン画面へ、など） */
+.auth-links {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.auth-links a {
+  color: #666;
+  text-decoration: none;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+}
+
+.hint {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+/* チェックボックスのレイアウト調整 */
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* チェックボックスと文字の隙間 */
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: -10px; /* 前のフィールドとの距離調整 */
+  margin-bottom: 20px;
+}
+
+.remember-me input[type="checkbox"] {
+  width: auto; /* width: 100%を上書き */
+  margin: 0;
+}
+
+.remember-me label {
+  display: inline;
+  margin: 0;
+  cursor: pointer;
+}
+
+/* --- レスポンシブ設定 (画面幅が768px以下の場合) --- */
+@media (max-width: 768px) {
+  header {
+    flex-direction: row;     /* 横並びを維持 */
+    flex-wrap: wrap;         /* 画面からはみ出す場合は自動で折り返し */
+    justify-content: center; /* 中央寄せ */
+    gap: 8px;                /* ボタン同士の隙間 */
+    padding: 10px;
+  }
+
+  header a {
+    flex: 1 1 auto;          /* 内容に合わせて幅を調整しつつ、柔軟に伸縮 */
+    min-width: 80px;         /* ボタンが小さくなりすぎないように */
+    padding: 6px 10px;       /* 上下を少し削ってコンパクトに */
+    font-size: 0.8rem;       /* 文字を少し小さく */
+    background-color: #f0f4f8;
+    border: 1px solid #d1d9e6;
+    border-radius: 8px;      /* 角丸を少し控えめに */
+    white-space: nowrap;     /* 文字を改行させない */
+  }
+
+  /* コンテンツエリア */
+  main {
+    margin: 15px 10px;
+    padding: 15px;
+  }
+}
