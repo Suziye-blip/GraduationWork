@@ -11,13 +11,28 @@
   </head>
 
   <body>
-    <header>
-      <% if user_signed_in? %>      
-        <%= link_to "ユーザー", user_path(current_user)%>
-        <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-      <% end %>
-      <%= link_to "あそびかた", how_to_play_path %>
-      <%= link_to 'トップ', root_path %>  
+    <header class="header">
+      <%= link_to "ユニークなゲーム", root_path, class: "logo" %>
+
+      <!-- ハンバーガーメニュー用のチェックボックス (CSSで制御) -->
+      <input type="checkbox" id="menu-toggle" class="menu-toggle">
+      
+      <!-- 三本線のアイコン -->
+      <label for="menu-toggle" class="menu-hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <!-- ナビゲーションメニュー -->
+      <nav class="nav-menu">
+        <% if user_signed_in? %>      
+          <%= link_to "ユーザー", user_path(current_user)%>
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+        <% end %>
+        <%= link_to "あそびかた", how_to_play_path %>
+        <%= link_to 'トップへ戻る', root_path %>
+      </nav>
     </header>
 
     <% if flash[:notice] %>
@@ -31,5 +46,4 @@
       <%= yield %>
     </main>
   </body>
-
 </html>
