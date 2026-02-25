@@ -60,7 +60,7 @@ Return Of The Obra Dinnは、ルーカス・ポープ製作のアドベンチャ
 ## 使用する技術スタック
 - 使用するフレームワーク:Ruby on Rails 6.1.7.3 
     - WebSocket(ActionCable)
-- データベース:MySQL  
+- データベース:PostgreSQL  
 - デプロイ先:Heroku  
 - 使用予定のGem:Faker,Devise
 
