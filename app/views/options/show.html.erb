@@ -1,0 +1,12 @@
+<h1>難易度設定</h1>
+
+<%= form_with url: option_path, method: :patch, local: true do |f| %>
+  <div class="field">
+    <%= f.label :candidate_count, "生成する候補者数" %><br>
+    <%= f.select :candidate_count, 
+                 [["初級 (10名)", 10], ["中級 (30名)", 30], ["上級 (50名)", 50]], 
+                 selected: session[:candidate_count] || 30 %>
+  </div>
+  <br>
+  <%= f.submit "設定を保存する" %>
+<% end %>

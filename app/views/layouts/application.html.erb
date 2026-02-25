@@ -29,6 +29,7 @@
         <% if user_signed_in? %>      
           <%= link_to "ユーザー", user_path(current_user)%>
           <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+          <%= link_to "難易度設定", option_path %>
         <% end %>
         <%= link_to "あそびかた", how_to_play_path %>
         <%= link_to 'トップへ戻る', root_path %>

@@ -27,7 +27,9 @@ class GamesController < ApplicationController
         address_starts << FFaker::AddressJA.tokyo_ward
       end
 
-    30.times do
+    count = session[:candidate_count] || 30
+
+    count.times do
       generated_age_start = age_starts.sample
       generated_grade_start = grade_starts.sample
       generated_faculty_start = faculty_starts.sample
@@ -44,9 +46,9 @@ class GamesController < ApplicationController
       )
     end
 
-    flash[:notice] = '候補者データが更新されました。'
-    redirect_to game_path
-  end
+  flash[:notice] = "候補者データ(#{count}名)が更新されました。"
+  redirect_to game_path
+end
 
 def index
   if current_answer.nil?

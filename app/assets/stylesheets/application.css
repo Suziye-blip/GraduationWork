@@ -152,11 +152,7 @@ main {
   text-align: center;
 }
 
-/* ========================================
-   レスポンシブ設定 (スマホ対応)
-   ======================================== */
 @media (max-width: 768px) {
-  /* ハンバーガーアイコン表示 */
   .menu-hamburger {
     display: flex;
     flex-direction: column;
@@ -175,7 +171,6 @@ main {
     transition: 0.3s;
   }
 
-  /* ナビゲーションを隠して縦並びに */
   .nav-menu {
     display: none;
     position: absolute;
@@ -196,12 +191,11 @@ main {
     border-bottom: 1px solid #f0f0f0;
   }
 
-  /* 開閉アクション */
+
   .menu-toggle:checked ~ .nav-menu {
     display: flex;
   }
 
-  /* アイコンのアニメーション */
   .menu-toggle:checked ~ .menu-hamburger span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
   .menu-toggle:checked ~ .menu-hamburger span:nth-child(2) { opacity: 0; }
   .menu-toggle:checked ~ .menu-hamburger span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
